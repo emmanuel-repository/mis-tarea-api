@@ -1,0 +1,22 @@
+{
+  "name": "mis-tareas",
+  "version": "1.0.0",
+  "description": "Proyecto de prueba para nuevo trabajo",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon src/index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "dotenv": "^16.4.5"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "morgan": "^1.10.0",
+    "mysql": "^2.18.1",
+    "nodemon": "^3.1.4",
+    "uuid": "^10.0.0"
+  }
+}
