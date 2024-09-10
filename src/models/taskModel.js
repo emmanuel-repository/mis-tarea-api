@@ -39,7 +39,7 @@ function getAllTasks() {
 
 		connection.query(query, (error, result) => {
 			if (error) return reject(error);
-			
+
 			resolve(result);
 		});
 
@@ -105,20 +105,35 @@ function updateStatusTask(slug, data) {
 			const dataResult = { task: data, statusQuery: result };
 
 			resolve(dataResult);
-			
+
 		});
 
 	});
 
 }
 
-function getFindTask(slug) {
+function deleteTask(slug) {
+	return new Promise((resolve, reject) => {
+
+		const taskData = [slug]
+		const query = `delete from tasks where slug = ?`;
+
+		connection.query(query, taskData, (error, result) => {
+
+			if (error) return reject(error);
+
+			const dataResult = { task: slug, statusQuery: result };
+
+			resolve(dataResult)
+		})
+
+	});
 }
 
 module.exports = {
 	getAllTasks,
-	getFindTask,
 	saveTask,
 	updateTask,
-	updateStatusTask
+	updateStatusTask,
+	deleteTask
 };

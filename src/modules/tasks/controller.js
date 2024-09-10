@@ -1,6 +1,8 @@
 const db = require('../../models/taskModel');
 
-function getListTask() { return db.getAllTasks(); }
+function getListTask() {
+	return db.getAllTasks();
+}
 
 function saveTask(data) {
 
@@ -18,10 +20,11 @@ function updateTask(data) {
 	if (validate.length > 0) throw validate;
 
 	return db.updateTask(data.params.id, data.body);
-
 }
 
-function updateStatusTask(data) { return db.updateStatusTask(data.params.id, data.body); }
+function updateStatusTask(data) {
+	return db.updateStatusTask(data.params.id, data.body);
+}
 
 function validateFormTask(data) {
 
@@ -35,9 +38,14 @@ function validateFormTask(data) {
 	return error;
 }
 
+function deleteTask(data) {
+	return db.deleteTask(data.params.id);
+}
+
 module.exports = {
 	getListTask,
 	updateTask,
 	saveTask,
-	updateStatusTask
+	updateStatusTask,
+	deleteTask
 }

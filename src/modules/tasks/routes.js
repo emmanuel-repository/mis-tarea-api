@@ -46,6 +46,20 @@ routes.put('/update/:id', async function (req, res) {
 
 });
 
+routes.put('/udpate-status/:id', async function (req, res) {
+	try {
+
+		const updateStatus = await taskController.updateStatusTask(res);
+
+		if (updateTask.affectedRows === 0) throw 'No se guardoron los cambios.'
+
+		responses.success(req, res, updateStatus.task, 200);
+
+	} catch (error) {
+		responses.error(req, res, error, 500);
+	}
+})
+
 routes.put('/update-status/:id', async function (req, res) {
 
 	try {
@@ -61,6 +75,22 @@ routes.put('/update-status/:id', async function (req, res) {
 	}
 
 });
+
+routes.delete('/delete-task/:id', async function (req, res) {
+
+	try {
+
+		const deleteTask = await taskController.deleteTask(req);
+
+		if (deleteTask.affectedRows === 0) throw 'No se elimino los datos';
+
+		responses.success(req, res, deleteTask.task, 200);
+
+	} catch (error) {
+		responses.error(req, res, error, 500);
+	}
+
+})
 
 module.exports = routes;
 
