@@ -53,14 +53,14 @@ function saveTask(data) {
 
 		const uuid = uuidv4();
 		const taskData = [data.title, data.description, uuid, 'activo'];
-		const query = `insert into tasks (title, description, slug, status) value (?,?,?, 'curso')`;
+		const query = `insert into tasks (title, description, slug, status) value (?,?,?, 'pendiente')`;
 
 		connection.query(query, taskData, (error, result) => {
 
 			if (error) return reject(error);
 
 			data['slug'] = uuid;
-			data['status'] = 'curso'
+			data['status'] = 'pendiente'
 
 			const dataResult = { task: data, statusQuery: result };
 
@@ -95,12 +95,20 @@ function updateStatusTask(slug, data) {
 
 	return new Promise((resolve, reject) => {
 
-		const taskData = [data.status, slug];
+		let statusChange = null;
+
+		if (data.status == 'pendiente') statusChange = 'terminado';
+		else if(data.status == 'terminado') statusChange = 'pendiente';
+
+		const taskData = [statusChange, slug];
+
 		const query = `update tasks set status = ? where slug = ?`;
 
 		connection.query(query, taskData, (error, result) => {
 
 			if (error) return reject(error);
+
+			data['status'] = statusChange;
 
 			const dataResult = { task: data, statusQuery: result };
 
